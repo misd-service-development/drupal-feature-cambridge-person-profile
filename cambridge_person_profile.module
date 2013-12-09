@@ -1,0 +1,110 @@
+<?php
+/**
+ * @file
+ * Code for the Person Profile feature.
+ */
+
+include_once 'cambridge_person_profile.features.inc';
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function cambridge_person_profile_theme_registry_alter(&$theme_registry) {
+
+  //add the custom node tpl in our module to the theme registry
+  $theme_registry['node__cambridge_person_profile'] = array(
+    'template' => drupal_get_path('module', 'cambridge_person_profile') . '/templates/node--cambridge-person-profile',
+    'type' => 'module',
+  );
+
+  $theme_registry['node__cambridge_person_profile_teaser'] = array(
+    'template' => drupal_get_path('module', 'cambridge_person_profile') . '/templates/node--cambridge-person-profile-teaser',
+    'type' => 'module',
+  );
+
+  //add the custom theme tpl in our module to the theme registry
+  $theme_registry['field__field_person_positions__cambridge_person_profile'] = array(
+    'template' => drupal_get_path('module', 'cambridge_person_profile') . '/templates/field--field-person-positions--cambridge-person-profile',
+    'type' => 'module',
+  );
+}
+
+/**
+ * Instance of hook _preprocess_node();
+ * @param array $vars
+ */
+function cambridge_person_profile_preprocess_node(&$vars) {
+
+  if ($vars['teaser'] && $vars['type'] == 'cambridge_person_profile') {
+    $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '_teaser';
+  }
+
+}
+
+/**
+ * instance of hook _enable()
+ * Adjust the weight of this module if the cambridge_teasers module is installed as the two conflict on teaser themeing.
+ */
+function cambridge_person_profile_enable() {
+  $result = db_select('system', 's')
+    ->condition('s.type', 'module')
+    ->condition('s.status', 1)
+    ->condition('s.name', 'cambridge_teasers')
+    ->fields('s', array('weight', 'info', 'name'))
+    //->orderBy('weight', 'ASC')
+    ->execute();
+
+  $teaser_module_object = $result->fetchObject();
+  print_r($teaser_module_object);
+ 
+  //if the cambridge_teaser module exists and is enabled on our site, we must increase the weight of this module accordingly
+  if (!empty($teaser_module_object)) {
+    $new_person_profile_module_weight = $teaser_module_object->weight + 1;
+
+    //set the weight of this module to it's new value
+    $query = db_update('system')
+      ->fields(array(
+        'weight' => $new_person_profile_module_weight
+      ))
+      ->where(
+        'name = :module_name',
+        array('module_name' => 'cambridge_person_profile')
+      )
+      ->execute();
+  }
+}
+
+/**
+ * instance of hook _modules_enabled()
+ * @param array $modules
+ */
+function cambridge_person_profile_modules_enabled($modules) {
+  //if the cambridge_teasers module was just installed, need to set the weight of this module to heavier than the teasers module
+  //or the display of person profile content will not work in teaser mode.
+  if (in_array('cambridge_teasers', $modules)) {
+    $result = db_select('system', 's')
+      ->condition('s.type', 'module')
+      ->condition('s.status', 1)
+      ->condition('s.name', 'cambridge_teasers')
+      ->fields('s', array('weight', 'info', 'name'))
+      //->orderBy('weight', 'ASC')
+      ->execute();
+
+    $teaser_module_object = $result->fetchObject();
+
+    if (isset($teaser_module_object)) {
+      $new_person_profile_module_weight = $teaser_module_object->weight + 1;
+
+      //set the weight of this module to it's new value
+      $query = db_update('system')
+        ->fields(array(
+          'weight' => $new_person_profile_module_weight
+        ))
+        ->where(
+          'name = :module_name',
+          array('module_name' => 'cambridge_person_profile')
+        )
+        ->execute();
+    }
+  }
+}
