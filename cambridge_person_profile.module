@@ -29,12 +29,8 @@ function cambridge_person_profile_theme_registry_alter(&$theme_registry) {
   );
 }
 
-/**
- * Instance of hook _preprocess_node();
- * @param array $vars
- */
 function cambridge_person_profile_preprocess_node(&$vars) {
-
+  $a = 1;
   if ($vars['teaser'] && $vars['type'] == 'cambridge_person_profile') {
     $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '_teaser';
   }
@@ -76,7 +72,7 @@ function cambridge_person_profile_enable() {
 
 /**
  * instance of hook _modules_enabled()
- * @param array $modules
+ * @param $modules
  */
 function cambridge_person_profile_modules_enabled($modules) {
   //if the cambridge_teasers module was just installed, need to set the weight of this module to heavier than the teasers module

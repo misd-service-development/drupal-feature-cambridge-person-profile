@@ -50,10 +50,11 @@ function cambridge_person_profile_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'text_default',
+        'weight' => 3,
       ),
       'vertical_teaser' => array(
         'label' => 'above',
@@ -126,10 +127,14 @@ function cambridge_person_profile_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => 'small',
+        ),
+        'type' => 'image',
+        'weight' => 4,
       ),
       'vertical_teaser' => array(
         'label' => 'above',
@@ -221,8 +226,9 @@ function cambridge_person_profile_field_default_field_instances() {
       ),
       'teaser' => array(
         'label' => 'above',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'text_default',
         'weight' => 0,
       ),
       'vertical_teaser' => array(
@@ -294,7 +300,7 @@ function cambridge_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 8,
       ),
       'vertical_teaser' => array(
         'label' => 'above',
@@ -379,7 +385,7 @@ function cambridge_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 7,
       ),
       'vertical_teaser' => array(
         'label' => 'above',
@@ -450,7 +456,7 @@ function cambridge_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 6,
       ),
       'vertical_teaser' => array(
         'label' => 'above',
@@ -521,7 +527,7 @@ function cambridge_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 5,
       ),
       'vertical_teaser' => array(
         'label' => 'above',
@@ -589,10 +595,11 @@ function cambridge_person_profile_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'text_default',
+        'weight' => 2,
       ),
       'vertical_teaser' => array(
         'label' => 'above',
@@ -660,10 +667,11 @@ function cambridge_person_profile_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'link',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'type' => 'link_default',
+        'weight' => 1,
       ),
       'vertical_teaser' => array(
         'label' => 'above',
